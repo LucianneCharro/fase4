@@ -29,4 +29,4 @@ jobs:
           projectBaseDir: .
           args: >
             -Dsonar.projectKey=SONAR_TOKEN
-            -Dsonar.organization=LucianneCharro/fase4
+            -Dsonar.organization=luciannecharro
