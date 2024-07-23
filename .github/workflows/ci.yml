@@ -28,6 +28,6 @@ jobs:
         with:
           projectBaseDir: .
           args: >
-            -Dsonar.projectKey=SONAR_TOKEN
+            -Dsonar.projectKey=fase4
             -Dsonar.organization=luciannecharro
             -Dsonar.java.binaries=target/classes
