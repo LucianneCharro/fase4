@@ -28,5 +28,5 @@ jobs:
         with:
           projectBaseDir: .
           args: >
-            -Dsonar.projectKey=ballico
-            -Dsonar.organization=luciannecharro
+            -Dsonar.projectKey=SONAR_TOKEN
+            -Dsonar.organization=LucianneCharro
