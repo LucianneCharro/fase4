@@ -30,3 +30,4 @@ jobs:
           args: >
             -Dsonar.projectKey=SONAR_TOKEN
             -Dsonar.organization=luciannecharro
+            -Dsonar.java.binaries=target/classes
