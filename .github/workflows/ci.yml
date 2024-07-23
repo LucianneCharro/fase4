@@ -28,5 +28,5 @@ jobs:
         with:
           projectBaseDir: .
           args: >
-            -Dsonar.projectKey=fase4
+            -Dsonar.projectKey=ballico
             -Dsonar.organization=luciannecharro
