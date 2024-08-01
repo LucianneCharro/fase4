@@ -136,7 +136,7 @@ A aplicação utiliza MySQL como sistema de gerenciamento de banco de dados rela
 ## Como Executar o Projeto
 
 1. **Clone o Repositório:**
-   git clone https://github.com/LucianneCharro/gerenciamento-encomendas.git
+   git clone https://github.com/LucianneCharro/fase4.git
 
 2. **Importe o Projeto na sua IDE:**
 
