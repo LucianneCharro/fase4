@@ -21,7 +21,7 @@ O projeto Sistema de Gerenciamento de Encomendas é uma aplicação desenvolvida
 - **IDE**: IntelliJ IDEA 2024.1, recomendado para desenvolvimento.
 
 ## Desafios e Soluções
-Durante o desenvolvimento, enfrentei desafios como a configuração do ambiente para configuração do envio de e-mails, validação com o sonar, implementação de testes automatizados, e a criação de pipelines de CI/CD. As soluções foram encontradas por meio de pesquisa, documentação oficial e comunidade de desenvolvedores.
+Durante o desenvolvimento, enfrentei desafios como a configuração do Docker,  configuração do envio de e-mails, validação com o sonar, implementação de testes automatizados, e a criação de pipelines de CI/CD. As soluções foram encontradas por meio de pesquisa, documentação oficial e comunidade de desenvolvedores.
 
 ## Estrutura do Projeto
 O projeto é organizado em módulos como `Moradores`, `Encomendas`, `Notificações`, e `Autenticação`, cada um encapsulando uma parte específica da lógica de negócio e funcionalidades do sistema.
@@ -117,9 +117,44 @@ curl --request POST \
 "email": "lu@gmail.com"
 }'
 
+## Segurança
+
+A configuração de segurança da aplicação foi feita utilizando Spring Security. Abaixo estão os principais pontos da configuração:  
+
+- **Desabilitar CSRF:** A proteção CSRF foi desabilitada.
+- **Configurar Autorização:** Todas as URLs estão permitidas sem exigir autenticação.
+- **Gerenciamento de Sessão:** A política de criação de sessão está configurada como STATELESS.
+- **Adicionar Filtro JWT:** O filtro JWT foi adicionado antes do filtro de autenticação de nome de usuário e senha.
+- **Configurar CORS:** Configuração de CORS para permitir requisições de diferentes origens.
+
+## MySQL
+
+A aplicação utiliza MySQL como sistema de gerenciamento de banco de dados relacional. Abaixo estão as configurações necessárias:  
+- **Configuração do banco de dados no application.properties:**  spring.datasource.url=jdbc:mysql://localhost:3306/gerenciamento_encomendas spring.datasource.username=root spring.datasource.password=yourpassword spring.jpa.hibernate.ddl-auto=update spring.jpa.show-sql=true
+- **Subir o contêiner MySQL com Docker Compose:** version: '3.8' services: db: image: mysql:8.0 environment: MYSQL_ROOT_PASSWORD: yourpassword MYSQL_DATABASE: gerenciamento_encomendas ports: - "3306:3306"
+
 ## Como Executar o Projeto
 
 1. **Clone o Repositório:**
    git clone https://github.com/LucianneCharro/gerenciamento-encomendas.git
 
 2. **Importe o Projeto na sua IDE:**
+
+3. **Construir a imagem  Docker:**
+   docker-compose build
+
+4. **Subir os contêineres:**
+   docker-compose up
+
+5. **Acessar a aplicação:**
+   a aplicação estará disponível em http://localhost:8080/.
+
+6. **Documentação da API:**
+    Acesse a documentação da API em http://localhost:8080/swagger-ui.html.
+
+7. **Banco de Dados:**
+   O banco de dados MySQL estará disponível em http://localhost:3306/.
+
+8. **Parar os contêineres:**
+    docker-compose down
+
