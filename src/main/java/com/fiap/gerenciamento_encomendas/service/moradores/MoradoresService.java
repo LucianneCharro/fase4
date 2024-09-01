@@ -47,15 +47,23 @@ public class MoradoresService {
     }
 
     private Morador convertToEntity(MoradorDTO moradorDTO) {
+        if (moradorDTO.getNome() == null || moradorDTO.getNome().trim().isEmpty()) {
+            throw new IllegalArgumentException("O nome do morador é obrigatório.");
+        }
         if (moradorDTO.getTelefone() == null || moradorDTO.getTelefone().trim().isEmpty()) {
             throw new IllegalArgumentException("O telefone é obrigatório.");
         }
         if (moradorDTO.getApartamento() == null || moradorDTO.getApartamento().trim().isEmpty()) {
             throw new IllegalArgumentException("O número do apartamento é obrigatório.");
         }
+        if (moradorDTO.getEmail() == null || moradorDTO.getEmail().trim().isEmpty()) {
+            throw new IllegalArgumentException("O email do morador é obrigatório.");
+        }
         Morador morador = new Morador();
+        morador.setNome(moradorDTO.getNome());
         morador.setTelefone(moradorDTO.getTelefone());
         morador.setApartamento(moradorDTO.getApartamento());
+        morador.setEmail(moradorDTO.getEmail());
         return morador;
     }
 
@@ -68,12 +76,16 @@ public class MoradoresService {
         }
         morador.setTelefone(moradorDTO.getTelefone());
         morador.setApartamento(moradorDTO.getApartamento());
+        morador.setNome(moradorDTO.getNome());
+        morador.setEmail(moradorDTO.getEmail());
     }
 
     private MoradorDTO convertToDto(Morador morador) {
         MoradorDTO dto = new MoradorDTO();
         dto.setTelefone(morador.getTelefone());
         dto.setApartamento(morador.getApartamento());
+        dto.setNome(morador.getNome());
+        dto.setEmail(morador.getEmail());
         return dto;
     }
 }

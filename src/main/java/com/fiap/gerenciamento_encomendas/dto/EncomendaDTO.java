@@ -12,6 +12,9 @@ public class EncomendaDTO {
     @NotBlank(message = "O nome do morador é obrigatório.")
     private String nomeMorador;
 
+    @NotBlank(message = "O email do morador é obrigatório.")
+    private String emailMorador;
+
     @NotBlank(message = "O número do apartamento é obrigatório.")
     @Size(min = 1, max = 6, message = "O número do apartamento deve ter entre 1 e 6 caracteres.")
     private String numeroApartamento;

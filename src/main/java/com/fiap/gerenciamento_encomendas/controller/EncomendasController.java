@@ -6,24 +6,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/encomendas")
+@RequestMapping("/encomendas-portaria")
 public class EncomendasController {
     @Autowired
     private EncomendasService encomendasService;
 
     @PostMapping("/receber")
-    public ResponseEntity<?> receberEncomenda(@RequestBody EncomendaDTO encomendaDTO) {
-        encomendasService.adicionarEncomenda(encomendaDTO);
+    public ResponseEntity<?> receberEncomendasPortaria(@RequestBody EncomendaDTO encomendaDTO) {
+        encomendasService.receberEncomendaPortaria(encomendaDTO);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/processar")
-    public ResponseEntity<?> processarEncomendas() {
-        encomendasService.processarEncomendas();
+    public ResponseEntity<?> processarEncomendasPortaria() {
+        encomendasService.processarEncomendasPortaria();
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/retirar/{id}")
+    @PostMapping("/retirar-morador/{id}")
     public ResponseEntity<?> registrarRetirada(@PathVariable Long id) {
         encomendasService.registrarRetirada(id);
         return ResponseEntity.ok().build();

@@ -3,7 +3,6 @@ package com.fiap.gerenciamento_encomendas.service;
 import com.fiap.gerenciamento_encomendas.model.Notificacao;
 import com.fiap.gerenciamento_encomendas.repository.NotificacaoRepository;
 import com.fiap.gerenciamento_encomendas.service.notificacao.NotificacaoService;
-import com.fiap.gerenciamento_encomendas.service.notificacao.NotificacaoStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,9 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class NotificacaoServiceTest {
 
     @Mock
-    private NotificacaoStrategy notificacaoStrategy;
-
-    @Mock
     private NotificacaoRepository notificacaoRepository;
 
     @InjectMocks
@@ -33,17 +29,7 @@ public class NotificacaoServiceTest {
 
     @BeforeEach
     void setUp() {
-        notificacaoService = new NotificacaoService(notificacaoStrategy, notificacaoRepository);
-    }
-
-    @Test
-    void enviarNotificacao_ShouldInvokeNotificacaoStrategy() {
-        String destinatario = "test@example.com";
-        String mensagem = "Test message";
-
-        notificacaoService.enviarNotificacao(destinatario, mensagem);
-
-        verify(notificacaoStrategy, times(1)).enviarNotificacao(destinatario, mensagem);
+        notificacaoService = new NotificacaoService(notificacaoRepository);
     }
 
     @Test

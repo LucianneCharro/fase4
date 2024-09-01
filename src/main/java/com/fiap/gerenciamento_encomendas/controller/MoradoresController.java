@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/moradores")
+@RequestMapping("/cadastrar-moradores")
 public class MoradoresController {
 
     @Autowired

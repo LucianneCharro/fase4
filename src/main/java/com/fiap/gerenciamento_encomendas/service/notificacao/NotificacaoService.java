@@ -6,16 +6,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NotificacaoService {
-    private NotificacaoStrategy notificacaoStrategy;
     private final NotificacaoRepository notificacaoRepository;
 
-    public NotificacaoService(NotificacaoStrategy notificacaoStrategy, NotificacaoRepository notificacaoRepository) {
-        this.notificacaoStrategy = notificacaoStrategy;
+    public NotificacaoService(NotificacaoRepository notificacaoRepository) {
         this.notificacaoRepository = notificacaoRepository;
-    }
-
-    public void enviarNotificacao(String destinatario, String mensagem) {
-        notificacaoStrategy.enviarNotificacao(destinatario, mensagem);
     }
 
     public ResponseEntity<?> confirmarRecebimento(Long id) {

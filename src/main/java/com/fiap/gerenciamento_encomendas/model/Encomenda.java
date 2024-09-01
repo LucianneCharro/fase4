@@ -15,6 +15,7 @@ public class Encomenda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomeMorador;
+    private String emailMorador;
     private String numeroApartamento;
     private String descricao;
     private String status;

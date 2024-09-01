@@ -5,14 +5,13 @@ import com.fiap.gerenciamento_encomendas.model.Encomenda;
 import com.fiap.gerenciamento_encomendas.repository.EncomendasRepository;
 import com.fiap.gerenciamento_encomendas.repository.NotificacaoRepository;
 import com.fiap.gerenciamento_encomendas.service.encomendas.EncomendasService;
-import com.fiap.gerenciamento_encomendas.service.notificacao.NotificacaoService;
+import com.fiap.gerenciamento_encomendas.service.notificacao.EmailService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -26,7 +25,7 @@ public class EncomendasServiceTest {
     private EncomendasRepository encomendasRepository;
 
     @Mock
-    private NotificacaoService notificacaoService;
+    private EmailService emailService;
 
     @Mock
     private NotificacaoRepository notificacaoRepository;
@@ -45,7 +44,7 @@ public class EncomendasServiceTest {
         encomendaDTO.setNumeroApartamento("101");
         encomendaDTO.setDescricao("Package");
 
-        encomendasService.adicionarEncomenda(encomendaDTO);
+        encomendasService.receberEncomendaPortaria(encomendaDTO);
 
         verify(encomendasRepository, times(1)).save(any(Encomenda.class));
     }
@@ -66,10 +65,10 @@ public class EncomendasServiceTest {
 
         when(encomendasRepository.findByNomeMoradorAndDescricao(anyString(), anyString())).thenReturn(encomenda);
 
-        encomendasService.adicionarEncomenda(encomendaDTO);
-        encomendasService.processarEncomendas();
+        encomendasService.receberEncomendaPortaria(encomendaDTO);
+        encomendasService.processarEncomendasPortaria();
 
-        verify(notificacaoService, times(1)).enviarNotificacao(anyString(), anyString());
+        verify(emailService, times(1)).enviarEmailTexto(anyString(), anyString(), anyString());
         verify(encomendasRepository, times(2)).save(any(Encomenda.class));
     }
 
