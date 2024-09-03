@@ -22,7 +22,7 @@ public class EncomendasIntegrationTests {
 
     @Test
     public void testReceberEncomenda() throws Exception {
-        mockMvc.perform(post("/encomendas/receber")
+        mockMvc.perform(post("/encomendas-portaria/receber")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"nome\":\"Teste\",\"descricao\":\"Descricao da encomenda\",\"moradorId\":1}"))
                 .andExpect(status().isOk());
@@ -30,13 +30,13 @@ public class EncomendasIntegrationTests {
 
     @Test
     public void testProcessarEncomendas() throws Exception {
-        mockMvc.perform(get("/encomendas/processar"))
+        mockMvc.perform(get("/encomendas-portaria/processar"))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void testRegistrarRetirada() throws Exception {
-        mockMvc.perform(post("/encomendas/retirar/1"))
+        mockMvc.perform(post("/encomendas-portaria/retirar-morador/1"))
                 .andExpect(status().isOk());
     }
 }

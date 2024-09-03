@@ -1,15 +1,15 @@
 FROM openjdk:17-jdk AS build
 
-WORKDIR /workspace/app
-
+WORKDIR /app
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
-COPY src src
 
+COPY src src
+RUN chmod +x mvnw
 RUN ./mvnw install -DskipTests
 
 FROM openjdk:17-jdk-slim
 VOLUME /tmp
-COPY --from=build /workspace/app/target/*.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]

@@ -22,28 +22,28 @@ public class MoradoresIntegrationTests {
 
     @Test
     public void testListarMoradores() throws Exception {
-        mockMvc.perform(get("/moradores"))
+        mockMvc.perform(get("/cadastrar-moradores"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
     public void testAdicionarMorador() throws Exception {
-        mockMvc.perform(post("/moradores")
+        mockMvc.perform(post("/cadastrar-moradores")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"telefone\":\"(11) 99611-7525\",\"apartamento\":\"101\"}"))
+                        .content("{\"telefone\":\"(11) 99611-7525\",\"apartamento\":\"101\",\"nome\":\"Lu\",\"email\":\"xx@xx\"}"))
                 .andExpect(status().isCreated());
     }
 
     @Test
     public void testRemoverMorador() throws Exception {
         // Cria um morador para garantir que ele exista
-        mockMvc.perform(post("/moradores")
+        mockMvc.perform(post("/cadastrar-moradores")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"telefone\":\"(11) 99611-7525\",\"apartamento\":\"101\"}"))
+                        .content("{\"telefone\":\"(11) 99611-7525\",\"apartamento\":\"101\",\"nome\":\"Lu\",\"email\":\"xx@xx\"}"))
                 .andExpect(status().isCreated());
 
-        mockMvc.perform(delete("/moradores/" + 1))
+        mockMvc.perform(delete("/cadastrar-moradores/" + 1))
                 .andExpect(status().isOk());
     }
 }

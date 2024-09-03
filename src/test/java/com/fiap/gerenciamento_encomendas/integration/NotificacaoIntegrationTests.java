@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -22,21 +22,15 @@ public class NotificacaoIntegrationTests {
 
     @Test
     public void testReceberEncomenda() throws Exception {
-        mockMvc.perform(post("/encomendas/receber")
+        mockMvc.perform(post("/encomendas-portaria/receber")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"nome\":\"Teste\",\"descricao\":\"Descricao da encomenda\",\"moradorId\":1}"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void testProcessarEncomendas() throws Exception {
-        mockMvc.perform(get("/encomendas/processar"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
     public void testRegistrarRetirada() throws Exception {
-        mockMvc.perform(post("/encomendas/retirar/1"))
+        mockMvc.perform(post("/encomendas-portaria/retirar-morador/1"))
                 .andExpect(status().isOk());
     }
 }

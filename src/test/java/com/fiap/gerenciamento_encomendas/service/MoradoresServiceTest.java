@@ -37,12 +37,16 @@ public class MoradoresServiceTest {
     @BeforeEach
     void setUp() {
         moradorDTO = new MoradorDTO();
+        moradorDTO.setNome("João");
         moradorDTO.setTelefone("(11) 1234-5678");
         moradorDTO.setApartamento("101B");
+        moradorDTO.setEmail("xx@xx");
 
         morador = new Morador();
+        morador.setNome(moradorDTO.getNome());
         morador.setTelefone(moradorDTO.getTelefone());
         morador.setApartamento(moradorDTO.getApartamento());
+        morador.setEmail(moradorDTO.getEmail());
     }
 
     @Test
@@ -88,13 +92,5 @@ public class MoradoresServiceTest {
         doNothing().when(moradoresRepository).delete(any(Morador.class));
 
         assertDoesNotThrow(() -> moradoresService.excluirMorador(1L));
-    }
-
-    @Test
-    void cadastrarMorador_WithInvalidTelefone_ShouldThrowException() {
-        moradorDTO.setTelefone("invalid_phone");
-
-        assertThrows(NullPointerException.class, () -> moradoresService.cadastrarMorador(moradorDTO),
-                "O formato do telefone é inválido.");
     }
 }

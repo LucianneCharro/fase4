@@ -55,6 +55,7 @@ public class EncomendasServiceTest {
         encomendaDTO.setNomeMorador("John Doe");
         encomendaDTO.setNumeroApartamento("101");
         encomendaDTO.setDescricao("Package");
+        encomendaDTO.setEmailMorador("xx@xx");
 
         Encomenda encomenda = new Encomenda();
         encomenda.setId(1L);
@@ -62,6 +63,7 @@ public class EncomendasServiceTest {
         encomenda.setNumeroApartamento("101");
         encomenda.setDescricao("Package");
         encomenda.setStatus("Recebida");
+        encomenda.setEmailMorador("xx@xx");
 
         when(encomendasRepository.findByNomeMoradorAndDescricao(anyString(), anyString())).thenReturn(encomenda);
 
