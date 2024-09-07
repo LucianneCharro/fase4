@@ -20,12 +20,6 @@ services:
       - "8080:8080"
     depends_on:
       - db
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
 
 volumes:
   mysql-volume:
