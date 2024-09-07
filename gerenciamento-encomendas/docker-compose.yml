@@ -1,6 +1,8 @@
 services:
   db:
     image: mysql:8.0
+    container_name: my-mysql
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: gerenciamento_encomendas
@@ -21,3 +23,7 @@ services:
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  mysql-volume:
+    driver: local
