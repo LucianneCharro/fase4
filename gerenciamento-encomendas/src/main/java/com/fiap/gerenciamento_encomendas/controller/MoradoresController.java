@@ -48,6 +48,7 @@ public class MoradoresController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Excluir", description = "Excluir morador por id", tags = "moradores")
     public ResponseEntity<?> excluirMorador(@PathVariable Long id) {
         moradoresService.excluirMorador(id);
         return ResponseEntity.ok().build();

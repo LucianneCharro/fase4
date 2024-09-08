@@ -15,14 +15,14 @@ public class EncomendasController {
     private EncomendasService encomendasService;
 
     @PostMapping("/receber")
-    @Operation(summary = "Receber", description = "Receber encomendas na portaria", tags = "encomendas")
+    @Operation(summary = "Receber encomenda", description = "Receber encomendas na portaria", tags = "encomendas")
     public ResponseEntity<?> receberEncomendasPortaria(@RequestBody EncomendaDTO encomendaDTO) {
         encomendasService.receberEncomendaPortaria(encomendaDTO);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/processar")
-    @Operation(summary = "Processar", description = "Processar encomendas na portaria/Enviar email", tags = "encomendas")
+    @Operation(summary = "Processar e Enviar Email", description = "Processar encomendas na portaria/Enviar email", tags = "encomendas")
     public ResponseEntity<?> processarEncomendasPortaria() {
         encomendasService.processarEncomendasPortaria();
         return ResponseEntity.ok().build();
