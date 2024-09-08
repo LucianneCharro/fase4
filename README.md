@@ -13,18 +13,17 @@ O projeto Sistema de Gerenciamento de Encomendas é uma aplicação desenvolvida
 - **JUnit e Mockito**: Para realização de testes unitários e de mock.
 - **Spring Boot Test**: Para testes de integração.
 - **GitHub Actions**: Para integração contínua (CI), automatizando testes e builds.
-- **AWS ECS**: Para deploy e gerenciamento dos serviços em nuvem.
-- **JavaDoc**: Para documentação do código.
+- **Swagger**: Para documentação do código.
 - **Postman**: Para testes e documentação da API.
 - **Lombok**: Para redução de código boilerplate.
 - **ModelMapper**: Para mapeamento entre entidades e DTOs.
 - **IDE**: IntelliJ IDEA 2024.1, recomendado para desenvolvimento.
 
 ## Desafios e Soluções
-Durante o desenvolvimento, enfrentei desafios como a configuração do Docker,  configuração do envio de e-mails, validação com o sonar, implementação de testes automatizados, e a criação de pipelines de CI/CD. As soluções foram encontradas por meio de pesquisa, documentação oficial e comunidade de desenvolvedores.
+Durante o desenvolvimento, enfrentei desafios como a configuração do Docker,  configuração do envio de e-mails e implementação de testes automatizados. As soluções foram encontradas por meio de pesquisa, documentação oficial e comunidade de desenvolvedores.
 
 ## Estrutura do Projeto
-O projeto é organizado em módulos como `Moradores`, `Encomendas`, `Notificações`, e `Autenticação`, cada um encapsulando uma parte específica da lógica de negócio e funcionalidades do sistema.
+O projeto é organizado em módulos como `Moradores`, `Encomendas` e `Notificações`, cada um encapsulando uma parte específica da lógica de negócio e funcionalidades do sistema.
 
 ## Execução e Testes
 Para executar o sistema localmente, siga os passos de clonagem do repositório, importação como projeto Maven, execução via Docker Compose para os serviços necessários, e inicialização da aplicação principal através da IDE. A aplicação está configurada para rodar na porta padrão do Spring Boot (8080), a menos que especificado de outra forma no `application.properties`.
@@ -35,14 +34,14 @@ Para executar o sistema localmente, siga os passos de clonagem do repositório, 
 Gerencia o cadastro e informações dos moradores do condomínio.
 
 curl --request GET \
---url http://localhost:8080/moradores \
+--url http://localhost:8081/cadastrar-moradores \
 --header 'User-Agent: insomnia/9.3.2'
 
 curl --request GET \
---url http://localhost:8080/moradores/1 \
+--url http://localhost:8081/cadastrar-moradores/1 \
 --header 'User-Agent: insomnia/9.3.2'
 curl --request POST \
---url http://localhost:8080/moradores \
+--url http://localhost:8081/cadastrar-moradores \
 --header 'Content-Type: application/json' \
 --header 'User-Agent: insomnia/9.3.2' \
 --data '{
@@ -51,7 +50,7 @@ curl --request POST \
 }'
 
 curl --request PUT \
---url http://localhost:8080/moradores/1 \
+--url http://localhost:8081/cadastrar-moradores/1 \
 --header 'Content-Type: application/json' \
 --header 'User-Agent: insomnia/9.3.2' \
 --data '{
@@ -60,7 +59,7 @@ curl --request PUT \
 }'
 
 curl --request DELETE \
---url http://localhost:8080/moradores/2 \
+--url http://localhost:8081/cadastrar-moradores/2 \
 --header 'Content-Type: application/json' \
 --header 'User-Agent: insomnia/9.3.2'
 
@@ -68,16 +67,16 @@ curl --request DELETE \
 Permite o registro de encomendas recebidas, associando-as aos moradores correspondentes.
 
 curl --request GET \
---url http://localhost:8080/encomendas/processar \
+--url http://localhost:8081/encomendas-portaria/processar \
 --header 'User-Agent: insomnia/9.3.2'
 
 curl --request POST \
---url http://localhost:8080/encomendas/retirar/1 \
+--url http://localhost:8081/encomendas-portaria/retirar-morador/1 \
 --header 'Content-Type: application/json' \
 --header 'User-Agent: insomnia/9.3.2'
 
 curl --request POST \
---url http://localhost:8080/encomendas/receber \
+--url http://localhost:8081/encomendas-portaria/receber \
 --header 'Content-Type: application/json' \
 --header 'User-Agent: insomnia/9.3.2' \
 --data '{
@@ -90,32 +89,9 @@ curl --request POST \
 Envia notificações aos moradores sobre a chegada de encomendas e permite a confirmação de recebimento.
 
 curl --request POST \
---url http://localhost:8080/notificacoes/confirmar/2 \
+--url http://localhost:8081/notificacoes/confirmar/2 \
 --header 'Content-Type: application/json' \
 --header 'User-Agent: insomnia/9.3.2'
-
-#### Autenticação
-Gerencia o acesso ao sistema, garantindo que apenas usuários autorizados possam executar determinadas operações.
-
-curl --request POST \
---url http://localhost:8080/auth/registrar \
---header 'Content-Type: application/json' \
---header 'User-Agent: insomnia/9.3.2' \
---data '{
-"username": "ballico",
-"password": "123456",
-"email": "lu@gmail.com"
-}'
-
-curl --request POST \
---url http://localhost:8080/auth/login \
---header 'Content-Type: application/json' \
---header 'User-Agent: insomnia/9.3.2' \
---data '{
-"username": "ballico",
-"password": "123456",
-"email": "lu@gmail.com"
-}'
 
 ## Segurança
 
@@ -130,27 +106,25 @@ A configuração de segurança da aplicação foi feita utilizando Spring Securi
 ## MySQL
 
 A aplicação utiliza MySQL como sistema de gerenciamento de banco de dados relacional. Abaixo estão as configurações necessárias:  
-- **Configuração do banco de dados no application.properties:**  spring.datasource.url=jdbc:mysql://localhost:3306/gerenciamento_encomendas spring.datasource.username=root spring.datasource.password=yourpassword spring.jpa.hibernate.ddl-auto=update spring.jpa.show-sql=true
-- **Subir o contêiner MySQL com Docker Compose:** version: '3.8' services: db: image: mysql:8.0 environment: MYSQL_ROOT_PASSWORD: yourpassword MYSQL_DATABASE: gerenciamento_encomendas ports: - "3306:3306"
+- **Configuração do banco de dados no application.properties:**  spring.datasource.url=jdbc:mysql://db:3306/myDB spring.datasource.username=root spring.datasource.password=yourpassword spring.jpa.hibernate.ddl-auto=update spring.jpa.show-sql=true
 
 ## Como Executar o Projeto
 
 1. **Clone o Repositório:**
-   git clone https://github.com/LucianneCharro/fase4.git
+   git clone https://github.com/LucianneCharro/fase4/tree/fiap/fase4-substitutiva
 
-2. **Importe o Projeto na sua IDE:**
+3. **Importe o Projeto na sua IDE:**
 
-3. **Construir a imagem  Docker:**
-   docker-compose build
-
-4. **Subir os contêineres:**
-   docker-compose up
+3. **Executar o Docker:**
+   Executar o Docker Desktop localmente
+   docker-compose up -d
+   docker ps
 
 5. **Acessar a aplicação:**
-   a aplicação estará disponível em http://localhost:8080/.
+   a aplicação estará disponível em http://localhost:8081/.
 
 6. **Documentação da API:**
-    Acesse a documentação da API em http://localhost:8080/swagger-ui.html.
+    Acesse a documentação da API em http://localhost:8081/swagger-ui/index.html.
 
 7. **Banco de Dados:**
    O banco de dados MySQL estará disponível em http://localhost:3306/.
