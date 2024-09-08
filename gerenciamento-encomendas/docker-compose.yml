@@ -4,6 +4,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: myDB
+      MYSQL_ROOT_HOST: '%'
     ports:
       - "3306:3306"
     volumes:
@@ -15,10 +16,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/myDB
-#      - SPRING_DATASOURCE_USERNAME=root
-#      - SPRING_DATASOURCE_PASSWORD=root
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/myDB
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
     ports:
       - "8081:8080"
     networks:

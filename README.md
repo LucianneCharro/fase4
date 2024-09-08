@@ -121,10 +121,10 @@ A aplicação utiliza MySQL como sistema de gerenciamento de banco de dados rela
    docker ps
 
 5. **Acessar a aplicação:**
-   a aplicação estará disponível em http://localhost:8081/.
+   A aplicação estará disponível em http://localhost:8081/.
 
-6. **Documentação da API:**
-    Acesse a documentação da API em http://localhost:8081/swagger-ui/index.html.
+   6. **Documentação da API:**
+   Acesse a documentação da API em http://localhost:8081/swagger-ui/index.html.
 
 7. **Banco de Dados:**
    O banco de dados MySQL estará disponível em http://localhost:3306/.
