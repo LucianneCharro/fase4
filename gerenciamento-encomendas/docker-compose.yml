@@ -1,29 +1,38 @@
 services:
   db:
-    image: mysql:8.0
-    container_name: my-mysql
-    restart: always
+    image: mysql/mysql-server:latest
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: gerenciamento_encomendas
+      MYSQL_DATABASE: myDB
     ports:
       - "3306:3306"
+    volumes:
+      - ./volume_mysql:/var/lib/mysql
+    networks:
+      - app-network
 
   app:
     build:
       context: .
       dockerfile: Dockerfile
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/myDB
+#      - SPRING_DATASOURCE_USERNAME=root
+#      - SPRING_DATASOURCE_PASSWORD=root
     ports:
-      - "8080:8080"
-    depends_on:
-      - db
+      - "8081:8080"
     networks:
       - app-network
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    environment:
+      - SWAGGER_JSON=/app/swagger.yaml
+    volumes:
+      - ./swagger:/app
+    ports:
+      - "8080:8080"
 
 networks:
   app-network:
     driver: bridge
-
-volumes:
-  mysql-volume:
-    driver: local
