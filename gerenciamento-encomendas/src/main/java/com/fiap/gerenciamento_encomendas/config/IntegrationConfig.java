@@ -21,4 +21,5 @@ public class IntegrationConfig {
     public MessageChannel notificacoesChannel() {
         return new DirectChannel();
     }
+
 }
