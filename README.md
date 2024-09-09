@@ -93,16 +93,6 @@ curl --request POST \
 --header 'Content-Type: application/json' \
 --header 'User-Agent: insomnia/9.3.2'
 
-## Segurança
-
-A configuração de segurança da aplicação foi feita utilizando Spring Security. Abaixo estão os principais pontos da configuração:  
-
-- **Desabilitar CSRF:** A proteção CSRF foi desabilitada.
-- **Configurar Autorização:** Todas as URLs estão permitidas sem exigir autenticação.
-- **Gerenciamento de Sessão:** A política de criação de sessão está configurada como STATELESS.
-- **Adicionar Filtro JWT:** O filtro JWT foi adicionado antes do filtro de autenticação de nome de usuário e senha.
-- **Configurar CORS:** Configuração de CORS para permitir requisições de diferentes origens.
-
 ## MySQL
 
 A aplicação utiliza MySQL como sistema de gerenciamento de banco de dados relacional. Abaixo estão as configurações necessárias:  
@@ -112,19 +102,35 @@ A aplicação utiliza MySQL como sistema de gerenciamento de banco de dados rela
 
 1. **Clone o Repositório:**
    git clone https://github.com/LucianneCharro/fase4/tree/fiap/fase4-substitutiva
+   Estamos tentando mergear para main, mas por enquanto, utilize a branch fase4-substitutiva.
 
 3. **Importe o Projeto na sua IDE:**
+   Utilize o projeto na branch fase4-substitutiva
 
-3. **Executar o Docker:**
-   Executar o Docker Desktop localmente
+3. **Subir o Docker Desktop:**
+
+4. **Executar o Docker Compose:**
+   entre na pasta gerenciamento-encomendas
    docker-compose up -d
-   docker ps
+   docker ps >> teremos 3 imagens executando
 
 5. **Acessar a aplicação:**
-   a aplicação estará disponível em http://localhost:8081/.
+   a aplicação estará disponível em http://localhost:8081/
 
 6. **Documentação da API:**
-    Acesse a documentação da API em http://localhost:8081/swagger-ui/index.html.
+   Acesse a documentação da API em http://localhost:8081/swagger-ui/index.html
+   Para realizar o envio de email:
+    a. POST/Receber encomendas na portaria
+       Coloque o email que você deseja receber a notificação
+       Olhe na caixa de spam e veja a notificação enviada por fabio297@gmail.com
+    b. POST/Processar encomendas na portaria/Enviar email
+
+    2. **Enviar email:**
+    curl --request POST \
+    --url http://localhost:8082/enviar-email \
+    --header 'Content-Type: application/json' \
+    --data '{
+    "email": "
 
 7. **Banco de Dados:**
    O banco de dados MySQL estará disponível em http://localhost:3306/.
